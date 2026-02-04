@@ -38,3 +38,19 @@ class Order(models.Model):
     def __str__(self):
         return self.status.name
 
+
+class Coupon(models.Model):
+    code = models.CharField(
+        max_length=50,
+        unique=True,
+        verbose_name="Coupon Code"
+        )
+    discount_percentage = models.DecimalField()
+    is_active = models.BooleanField(default=True)
+    valid_from = models.DateField()
+    valid_until = models.DateField()
+
+    # represent string
+    def __str__(self):
+        return self.code
+
