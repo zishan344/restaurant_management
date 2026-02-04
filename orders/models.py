@@ -27,13 +27,13 @@ class Order(models.Model):
         on_delete=models.CASCADE, 
         verbose_name="Order Status",
         )
-        created_at = models.DateTimeField(
-            auto_now_add=True,
-            verbose_name="Created At"
-        )
-        updated_at = models.DateTimeField(
-            auto_now=True,
-            verbose_name="Updated At"
-        )
-        def __str__(self):
-            return self.status.name
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name="Created At"
+    )
+    updated_at = models.DateTimeField(
+        auto_now=True,
+        verbose_name="Updated At"
+    )
+    def __str__(self):
+        return self.status.name
