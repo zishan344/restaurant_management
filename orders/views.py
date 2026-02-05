@@ -1,4 +1,3 @@
-from urllib import request, response
 from rest_framework import status
 from rest_framework.views import APIView 
 from rest_framework.response import Response
@@ -23,9 +22,8 @@ class CouponValidationView(APIView):
                 return Response(
                     {"valid":True, "message":"applied coupon successfully"},status=status.HTTP_200_OK
                 )
-            else:
-                return Response(
-                    {"valid":False, "error":"invalid coupon"},status=status.HTTP_200_OK
+            return Response(
+                    {"valid":False, "error":"invalid coupon"},status=status.HTTP_400_BAD_REQUEST
                 )
         return Response({"valid":False, "error":"Invalid coupon code"}, status=status.HTTP_404_NOT_FOUND)
 
