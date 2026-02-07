@@ -1,3 +1,5 @@
+
+
 from django.db import models
 # Create your models here.
 
@@ -45,7 +47,7 @@ class Coupon(models.Model):
         unique=True,
         verbose_name="Coupon Code"
         )
-    discount_percentage = models.DecimalField(decimal_places=2,max_digits=3)
+    discount_percentage = models.DecimalField(decimal_places=2, max_digits=3,verbose_name="Coupon Discount")
     is_active = models.BooleanField(default=True)
     valid_from = models.DateField()
     valid_until = models.DateField()

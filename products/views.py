@@ -7,7 +7,7 @@ from .models import Item
 from .serializers import ItemSerializer
 
 '''
-NOTE: Conside this as a reference and follow this same coding structure or format to work on you tasks
+NOTE: Conside this as a refeerenc and follow this same coding structure or format to work on you tasks
 '''
 
 # Create your views here.
