@@ -38,10 +38,15 @@ class Restaurant(models.Model):
         blank=False,
         verbose_name="City"
     )
+    has_delivery= models.BooleanField(
+        default=True,
+        verbose_name="delivery service"
+    )
     created_at = models.DateTimeField(
         auto_now_add=True,
         verbose_name="created time"
     )
+
     class Meta:
         # default ordering
         ordering = ['-created_at']
