@@ -13,7 +13,7 @@ class Restaurant(models.Model):
         max_length=100,
         null=False,
         blank=False,
-        verbose_name="Name"
+        verbose_name="Owner Name"
     )
     email = models.EmailField(
         max_length=250,
@@ -25,7 +25,7 @@ class Restaurant(models.Model):
         max_length=50,
         null=False,
         blank=False,
-        verbose_name="ContactNumber"
+        verbose_name="Contact Number"
     )
     address = models.TextField(
         null=False,
@@ -40,13 +40,18 @@ class Restaurant(models.Model):
     )
     has_delivery= models.BooleanField(
         default=True,
-        verbose_name="delivery service"
+        verbose_name="Has Delivery"
     )
     created_at = models.DateTimeField(
         auto_now_add=True,
-        verbose_name="created time"
+        verbose_name="created At"
     )
 
     class Meta:
         # default ordering
         ordering = ['-created_at']
+        verbose_name="Restaurant"
+        verbose_name_plural="Restaurants"
+
+    def __str__(self):
+        return self.name
