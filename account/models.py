@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 class Restaurant(models.Model):
-    # write your code here
+    """ Restaurnt Model """
     name = models.CharField(
         max_length=100,
         null=False,
