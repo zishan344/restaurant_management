@@ -5,7 +5,7 @@ class OrderSerializer(ModelSerializer):
 
     class Meta:
         model = Order
-        fields = ['id','phone', 'email', 'created_at']
+        fields = ['id', 'name','phone', 'email', 'created_at']
 
         # handle optional field
         extra_kwargs = {

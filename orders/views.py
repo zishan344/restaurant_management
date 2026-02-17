@@ -4,8 +4,8 @@ from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
 import orders
-from orders.models import Coupon, Order
-from orders.serializers import OrderSerializer
+from orders.models import Coupon, Order,Customer
+from orders.serializers import OrderSerializer, CustomerSerializer
 from orders.utils import validateDate
 
 # Order view
@@ -44,3 +44,6 @@ class CouponValidationView(APIView):
             "error":"Invalid coupon code"
         }, status=status.HTTP_404_NOT_FOUND)
 
+class CustomerView(generics.ListCreateAPIView):
+    queryset = Customer.objects.all()
+    serializer_class = CustomerSerializer

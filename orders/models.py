@@ -84,8 +84,13 @@ class Customer(models.Model):
         auto_now_add=True,
         verbose_name="customer_created_at"
         )
+    
+    class Meta:
+        ordering = ['-created_at']
+        verbose_name = "customer_record"
     def __str__(self):
         return self.name or "Guest Customer"
+    
 
 # coupon model
 class Coupon(models.Model):
