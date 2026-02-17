@@ -85,7 +85,7 @@ class Customer(models.Model):
         verbose_name="customer_created_at"
         )
     def __str__(self):
-        return f"name: {self.name} & id: {self.id}"
+        return self.name or "Guest Customer"
 
 # coupon model
 class Coupon(models.Model):
