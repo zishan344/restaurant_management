@@ -1,8 +1,12 @@
-
-
+import uuid
 from django.db import models
+from django.contrib.auth import get_user_model
+from products.models import MenuItem
 # Create your models here.
 
+User = get_user_model()
+
+# order status
 class OrderStatus(models.Model):
     # Defining choices for order status
     STATUSES = [
@@ -23,10 +27,18 @@ class OrderStatus(models.Model):
         return self.name
 
 
+# Order model
 class Order(models.Model):
+    user = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="orders"
+        )
     status = models.ForeignKey(
         OrderStatus,
-        on_delete=models.CASCADE, 
+        on_delete=models.PROTECT, 
         verbose_name="Order Status",
         )
     created_at = models.DateTimeField(
@@ -41,13 +53,52 @@ class Order(models.Model):
         return self.status.name
 
 
+# customer model (optional for Dine-in or Guest Orders)
+class Customer(models.Model):
+    id = models.UUIDField(
+        primary_key=True,
+        default=uuid.uuid4,
+        unique=True,
+        editable=False,
+        verbose_name="customer_id"
+        )
+    name = models.CharField(
+        null=True,
+        blank=True,
+        max_length=50,
+        verbose_name="customer_name"
+        )
+    phone = models.CharField(
+        null=True,
+        blank=True,
+        max_length=50,
+        verbose_name="customer_phone"
+        )
+    email = models.EmailField(
+        null=True,
+        blank=True,
+        max_length=50,
+        verbose_name="customer_Email"
+        )
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name="customer_created_at"
+        )
+    def __str__(self):
+        return f"name: {self.name} & id: {self.id}"
+
+# coupon model
 class Coupon(models.Model):
     code = models.CharField(
         max_length=50,
         unique=True,
         verbose_name="Coupon Code"
         )
-    discount_percentage = models.DecimalField(decimal_places=2, max_digits=3,verbose_name="Coupon Discount")
+    discount_percentage = models.DecimalField(
+        decimal_places=2,
+        max_digits=3,
+        verbose_name="Coupon Discount"
+        )
     is_active = models.BooleanField(default=True)
     valid_from = models.DateField()
     valid_until = models.DateField()

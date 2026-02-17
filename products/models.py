@@ -1,8 +1,5 @@
 from django.db import models
 from account.models import Restaurant
-# Create your models here.
-from django.db import models
-from .models import Restaurant  # Make sure this import path is correct
 
 class MenuItem(models.Model):
     ''' 
@@ -31,6 +28,10 @@ class MenuItem(models.Model):
     is_available = models.BooleanField(
         default=True,
         verbose_name="available_item")
+    is_featured = models.BooleanField(
+        default=False,
+        verbose_name="featured_item"
+    )
     created_at = models.DateTimeField(
         auto_now_add=True, 
         verbose_name="created_date"

@@ -1,11 +1,25 @@
 from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
+from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from orders.models import Coupon
+import orders
+from orders.models import Coupon, Order
+from orders.serializers import OrderSerializer
 from orders.utils import validateDate
 
-# Create your views here.
+# Order view
+class OrderView(generics.ListCreateAPIView):
+    queryset = Order.objects.all()
+    serializer_class=OrderSerializer
+    permission_classes = [IsAuthenticated]
+    
 
+# TODO complete it generate unique coupon
+def CouponGenerate(request):
+    pass
+
+# coupon validation view
 class CouponValidationView(APIView):
     def post(self, request):
         code = request.data.get()
