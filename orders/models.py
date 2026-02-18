@@ -36,11 +36,19 @@ class Order(models.Model):
         blank=True,
         related_name="orders"
         )
-    status = models.ForeignKey(
+    customer = models.ForeignKey(
+        'Customer',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        verbose_name="customer"
+    )
+    """ status = models.ForeignKey(
         OrderStatus,
         on_delete=models.PROTECT, 
         verbose_name="Order Status",
-        )
+        ) """
+    status = models.CharField(default="PENDING", max_length=50)
     created_at = models.DateTimeField(
         auto_now_add=True,
         verbose_name="Created At"
@@ -50,7 +58,7 @@ class Order(models.Model):
         verbose_name="Updated At"
     )
     def __str__(self):
-        return self.status.name
+        return self.status
 
 
 # customer model (optional for Dine-in or Guest Orders)
