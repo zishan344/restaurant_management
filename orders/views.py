@@ -10,12 +10,22 @@ from orders.serializers import OrderSerializer, CustomerSerializer
 from orders.utils import validateDate
 
 # Order view
-""" class OrderView(generics.ListCreateAPIView):
-    queryset = Order.objects.all()
-    serializer_class=OrderSerializer
-    permission_classes = [IsAuthenticated] """
-    
+class CustomerOrderListView(APIView):
+    serializer_class = OrderSerializer # Standard naming convention
 
+    def get(self, request):
+        current_user = self.request.user
+        customer_id = self.request.query_params.get("customer_id")
+
+        # Logic for staff vs. regular users
+        if current_user.is_staff and customer_id:
+            queryset = Order.objects.filter(customer_id=customer_id)
+        else:
+            queryset = Order.objects.filter(user=current_user)
+
+        # Serialize the data and return a Response object
+        serializer = self.serializer_class(queryset, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 class CreateOrderView(APIView):
     def post(self, request):
         serializer = OrderSerializer(
